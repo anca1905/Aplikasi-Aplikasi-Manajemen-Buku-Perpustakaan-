@@ -49,7 +49,7 @@
                                                 <td>{{ $d->email }}</td>
                                                 <td style="text-align: center">
                                                     <a href="#" class="btn btn-success"><i class="fas fa-edit"></i>  Edit</a> 
-                                                    <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i>  Edit</a>
+                                                    <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i>  Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -57,7 +57,7 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer clearfix">
+                            <!--<div class="card-footer clearfix">
                                 <ul class="pagination pagination-sm m-0 float-right">
                                     <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -66,7 +66,7 @@
                                     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div>-->
                         <!-- /.card -->
                     </div>
                 </div>
