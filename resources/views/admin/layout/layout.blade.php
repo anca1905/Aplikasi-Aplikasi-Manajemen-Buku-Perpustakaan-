@@ -257,7 +257,7 @@
 
                         </li>
                         <li class="nav-item">
-                            <a href="/admin/pengguna" class="nav-link {{ request()->is('admin/pengguna') ? "active" : "" }}">
+                            <a href="/admin/pengguna" class="nav-link {{ request()->is('admin/pengguna') || request()->is('admin/pengguna/edit') ? "active" : "" }}">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Pengguna

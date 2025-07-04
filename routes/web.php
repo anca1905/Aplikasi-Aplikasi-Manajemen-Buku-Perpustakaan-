@@ -20,5 +20,5 @@ Route::get('/', function () {
 
 Route::get('admin', [AdminController::class, 'index']);
 Route::get('admin/pengguna', [AdminController::class, 'pengguna']);
-Route::view('coba', 'coba');
+Route::view('admin/pengguna/edit', 'admin.edit_pengguna');
 
