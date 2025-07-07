@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LoginController;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::view('/', 'login');
 
-Route::get('admin', [AdminController::class, 'index']);
-Route::get('admin/pengguna', [AdminController::class, 'pengguna']);
-Route::view('admin/pengguna/edit', 'admin.edit_pengguna');
+Route::post('login/proses', [LoginController::class, 'login_proses'])->name('login_proses');
 
+//Route Admin
+Route::get('admin/users', [AdminController::class, 'user'])->name('user');
+Route::get('admin/create', [AdminController::class, 'create'])->name('users.create');
+Route::post('admin/store', [AdminController::class, 'store'])->name('users.store');
+Route::get('admin/edit/{id}', [AdminController::class, 'edit'])->name('users.edit');
+Route::put('admin/update/{id}', [AdminController::class, 'update'])->name('users.update');
+Route::delete('admin/delete/{id}', [AdminController::class, 'delete'])->name('user.delete');
