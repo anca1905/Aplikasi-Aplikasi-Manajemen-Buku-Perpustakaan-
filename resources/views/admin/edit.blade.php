@@ -20,7 +20,7 @@
         </section>
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('users.update', ['id' => $data->id]) }}" method="post">
+                <form action="{{ route('adminusers.update', ['id' => $data->id]) }}" method="post">
                     @csrf
                     @method('PUT')
                     <div class="row">

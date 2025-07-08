@@ -12,11 +12,12 @@
     <script src="/js/color-modes.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <meta name="theme-color" content="#712cf9">
-    <link href="/css/sign-in.css" rel="stylesheet">
-    <link rel="icon" href="/img/logo.png">
+    <link href="{{ asset('css/sign-in.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ asset('/img/logo.png') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
     <style>
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -106,7 +107,7 @@
             padding-bottom: 12px;
         }
 
-        .form-control{
+        .form-control {
             border-color: gray;
         }
 
@@ -114,7 +115,6 @@
             border-color: #28a745 !important;
             box-shadow: none !important;
         }
-
     </style>
 </head>
 
@@ -145,7 +145,8 @@
                     <div class="form-floating turun">
                         <div class="position-relative mb-3">
                             <input type="password" name="password" class="form-control pr-5" placeholder="Password">
-                            <i class="bi bi-lock-fill position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                            <i
+                                class="bi bi-lock-fill position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
                         </div>
                     </div>
                     <div class="form-check text-start my-3">
@@ -164,6 +165,26 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" class="astro-vvvwv3sm">
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if ($message = Session::get('failed'))
+        <script>
+            Swal.fire({
+                title: '{{ $message }}',
+                icon: "error",
+                draggable: true
+            });
+        </script>
+    @endif
+
+    @if ($message = Session::get('success'))
+        <script>
+            Swal.fire({
+                title: '{{ $message }}',
+                icon: "success",
+                draggable: true
+            });
+        </script>
+    @endif
 </body>
 
 </html>

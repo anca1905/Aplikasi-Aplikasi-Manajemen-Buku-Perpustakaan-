@@ -5,14 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function user(){
-        $data = User::get();
+    public function user(Request $request){
+        $data = new User;
 
-        return view('admin.users',compact('data'));
+        if ($request->get('search')) {
+            $data = $data->where('name', 'LIKE', '%'.$request->get('search').'%')
+            ->orWhere('email', 'LIKE', '%'.$request->get('search').'%');
+        }
+
+        $data = $data->get();
+
+        return view('admin.users',compact('data', 'request'));
     }
 
     public function create(){
@@ -22,6 +30,7 @@ class AdminController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
+            'foto'      => 'required|mimes:png,jpg|max:2048',
             'nama'  => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -29,14 +38,20 @@ class AdminController extends Controller
 
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
-        
+        $foto = $request->file('foto');
+        $filename = date('Y-m-d').$foto->getClientOriginalName();
+        $path = 'foto-user/'.$filename;
+
+        Storage::disk('public')->put($path, file_get_contents($foto));
+
+        $data['image']      = $filename;
         $data['name']       = $request->nama;
         $data['email']      = $request->email;
         $data['password']   = Hash::make($request->password);
 
         User::create($data);
 
-        return redirect()->route('user');
+        return redirect()->route('adminuser');
     }
 
     public function edit(Request $request, $id)
@@ -48,6 +63,7 @@ class AdminController extends Controller
 
     public function update(Request $request, $id){
         $validator = Validator::make($request->all(), [
+            'foto'      => 'required|mimes:png,jpg|max:2048',
             'nama'      => 'required',
             'email'     => 'required|email',
             'password'  => 'nullable',
@@ -65,7 +81,7 @@ class AdminController extends Controller
 
         User::whereId($id)->update($data);
 
-        return redirect()->route('user');
+        return redirect()->route('adminuser');
     }
 
     public function delete(Request $request, $id){
@@ -73,7 +89,7 @@ class AdminController extends Controller
 
         User::whereId($id)->delete($data);
 
-        return redirect()->route('user');
+        return redirect()->route('adminuser');
     }
 
 }

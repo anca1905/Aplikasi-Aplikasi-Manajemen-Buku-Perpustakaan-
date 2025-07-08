@@ -20,7 +20,7 @@
         </section>
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('adminusers.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('adminusers.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <!-- left column -->
@@ -34,13 +34,6 @@
                                 <!-- form start -->
                                 <form>
                                     <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Foto Profile</label>
-                                            <input type="file" class="form-control" name="foto" id="exampleInputEmail1">
-                                                @error('foto')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
-                                        </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama</label>
                                             <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
