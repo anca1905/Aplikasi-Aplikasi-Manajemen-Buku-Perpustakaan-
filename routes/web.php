@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\DataTableController;
+use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +39,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin'], f
     Route::get('edit/{id}', [AdminController::class, 'edit'])->name('users.edit');
     Route::put('update/{id}', [AdminController::class, 'update'])->name('users.update');
     Route::delete('delete/{id}', [AdminController::class, 'delete'])->name('user.delete');
+
+    //Data Tabel Server Side
+    Route::get('server_table', [DataTableController::class, 'serverside'])->name('serverside');
+
+    //Import Excel
+    Route::get('import', [ImportController::class, 'index'])->name('import');
+    Route::post('import-proses', [ImportController::class, 'proses'])->name('import_proses');
 
     //Buku
     Route::get('data_buku', [BukuController::class, 'buku'])->name('buku');
