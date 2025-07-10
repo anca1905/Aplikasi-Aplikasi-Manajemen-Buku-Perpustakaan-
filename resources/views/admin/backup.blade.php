@@ -1,7 +1,4 @@
 @extends('admin.layout.layout');
-@section('tabelcss')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
-@endsection
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -29,12 +26,27 @@
                     <div class="col-md">
 
                         <div class="card">
-                            <!-- /.card-header -->
-                            <div class="card-body">
+                            <div class="card-header d-flex justify-content-between align-items-center px-0">
+                                <h3 class="card-title mb-0 ml-4">Tabel Pengguna</h3>
                                 <div class="d-flex align-items-center mr-4">
+                                    <form action="{{ route('adminuser') }}" method="GET">
+                                        <div class="input-group input-group-sm mr-2" style="width: 200px;">
+                                            <input type="text" name="search" class="form-control" placeholder="Search" value="{{ $request->get('search') }}">
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                     <a href="{{ route('adminusers.create') }}" class="btn btn-success">Tambah Data</a>
                                 </div>
-                                <table class="table table-bordered" id="serverside">
+                            </div>
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr style="text-align: center">
                                             <th style="width: 10px">No</th>
@@ -77,8 +89,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <form
-                                                                action="{{ route('adminuser.delete', ['id' => $d->id]) }}"
+                                                            <form action="{{ route('adminuser.delete', ['id' => $d->id]) }}"
                                                                 method="post">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -99,28 +110,19 @@
                             </div>
                             <!-- /.card-body -->
                             <!--<div class="card-footer clearfix">
-                                                                                        <ul class="pagination pagination-sm m-0 float-right">
-                                                                                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                                                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>-->
+                                                                        <ul class="pagination pagination-sm m-0 float-right">
+                                                                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>-->
                             <!-- /.card -->
                         </div>
                     </div>
                 </div>
         </section>
     </div>
-@endsection
-@section('tablejs')
-    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#serverside').DataTable();
-        });
-    </script>
 @endsection

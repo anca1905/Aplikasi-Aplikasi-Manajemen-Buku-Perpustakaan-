@@ -10,20 +10,22 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
-    public function user(Request $request){
+    public function user(Request $request)
+    {
         $data = new User;
 
         if ($request->get('search')) {
-            $data = $data->where('name', 'LIKE', '%'.$request->get('search').'%')
-            ->orWhere('email', 'LIKE', '%'.$request->get('search').'%');
+            $data = $data->where('name', 'LIKE', '%' . $request->get('search') . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $data = $data->get();
 
-        return view('admin.users',compact('data', 'request'));
+        return view('admin.users', compact('data', 'request'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.create');
     }
     public function store(Request $request)
@@ -39,8 +41,8 @@ class AdminController extends Controller
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
         $foto = $request->file('foto');
-        $filename = date('Y-m-d').$foto->getClientOriginalName();
-        $path = 'foto-user/'.$filename;
+        $filename = date('Y-m-d') . $foto->getClientOriginalName();
+        $path = 'foto-user/' . $filename;
 
         Storage::disk('public')->put($path, file_get_contents($foto));
 
@@ -61,9 +63,17 @@ class AdminController extends Controller
         return view('admin.edit', compact('data'));
     }
 
-    public function update(Request $request, $id){
+    public function detail(Request $request, $id)
+    {
+        $data = User::find($id);
+
+        return view('admin.detail', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make($request->all(), [
-            'foto'      => 'required|mimes:png,jpg|max:2048',
+            'foto'      => 'nullable|mimes:png,jpg|max:2048',
             'nama'      => 'required',
             'email'     => 'required|email',
             'password'  => 'nullable',
@@ -71,25 +81,44 @@ class AdminController extends Controller
 
         if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
+        $find = User::find($id);
+
         $data['name']       = $request->nama;
         $data['email']      = $request->email;
-        
 
-        if($request->password){
+
+
+
+        if ($request->password) {
             $data['password']   = Hash::make($request->password);
         }
+        $foto = $request->file('foto');
 
-        User::whereId($id)->update($data);
+        if ($foto) {
+
+            $filename = date('Y-m-d') . $foto->getClientOriginalName();
+            $path = 'foto-user/' . $filename;
+
+            if($find->image){
+                Storage::disk('public')->delete('foto-user/'.$find->image);
+            }
+
+            Storage::disk('public')->put($path, file_get_contents($foto));
+
+            $data['image'] = $filename;
+        }
+
+        $find->update($data);
 
         return redirect()->route('adminuser');
     }
 
-    public function delete(Request $request, $id){
+    public function delete(Request $request, $id)
+    {
         $data = User::find($id);
 
-        User::whereId($id)->delete($data);
+        $data->delete();
 
         return redirect()->route('adminuser');
     }
-
 }

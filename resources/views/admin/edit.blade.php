@@ -20,7 +20,7 @@
         </section>
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('adminusers.update', ['id' => $data->id]) }}" method="post">
+                <form action="{{ route('adminusers.update', ['id' => $data->id]) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -35,29 +35,43 @@
                                 <!-- form start -->
                                 <form>
                                     <div class="card-body">
+                                        @if ($data->image)
+                                            <img src="{{ asset('storage/foto-user/' . $data->image) }}" width="100"
+                                                height="auto" alt="">
+                                        @endif
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Foto Profile</label>
+                                            <input type="file" class="form-control" name="foto"
+                                                id="exampleInputEmail1">
+                                            @error('foto')
+                                                <small>{{ $message }}</small>
+                                            @enderror
+                                        </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama</label>
-                                            <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
-                                                placeholder="Enter Nama" value="{{ $data->name }}">
-                                                @error('nama')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
+                                            <input type="text" class="form-control" name="nama"
+                                                id="exampleInputEmail1" placeholder="Enter Nama"
+                                                value="{{ $data->name }}">
+                                            @error('nama')
+                                                <small>{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                                                placeholder="Enter Email" value="{{ $data->email }}">
-                                                @error('email')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
+                                            <input type="email" class="form-control" name="email"
+                                                id="exampleInputEmail1" placeholder="Enter Email"
+                                                value="{{ $data->email }}">
+                                            @error('email')
+                                                <small>{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                                                placeholder="Password">
-                                                @error('password')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
+                                            <input type="password" class="form-control" name="password"
+                                                id="exampleInputPassword1" placeholder="Password">
+                                            @error('password')
+                                                <small>{{ $message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

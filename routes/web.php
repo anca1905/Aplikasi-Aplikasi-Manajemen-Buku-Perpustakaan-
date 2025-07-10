@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin'], f
     Route::get('create', [AdminController::class, 'create'])->name('users.create');
     Route::post('store', [AdminController::class, 'store'])->name('users.store');
     Route::get('edit/{id}', [AdminController::class, 'edit'])->name('users.edit');
+    Route::get('detail/{id}', [AdminController::class, 'detail'])->name('users.detail');
     Route::put('update/{id}', [AdminController::class, 'update'])->name('users.update');
     Route::delete('delete/{id}', [AdminController::class, 'delete'])->name('user.delete');
 

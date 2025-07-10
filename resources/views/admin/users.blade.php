@@ -31,7 +31,8 @@
                                 <div class="d-flex align-items-center mr-4">
                                     <form action="{{ route('adminuser') }}" method="GET">
                                         <div class="input-group input-group-sm mr-2" style="width: 200px;">
-                                            <input type="text" name="search" class="form-control" placeholder="Search" value="{{ $request->get('search') }}">
+                                            <input type="text" name="search" class="form-control" placeholder="Search"
+                                                value="{{ $request->get('search') }}">
                                             <div class="input-group-append">
                                                 <button type="submit" class="btn btn-default">
                                                     <i class="fas fa-search"></i>
@@ -51,6 +52,7 @@
                                         <tr style="text-align: center">
                                             <th style="width: 10px">No</th>
                                             <th>Foto</th>
+                                            <th>NIK</th>
                                             <th>Nama</th>
                                             <th>Email</th>
                                             <th style="width: 200px">Aksi</th>
@@ -61,17 +63,21 @@
                                             <tr style="text-align: center">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td><img src="{{ asset('storage/foto-user/' . $d->image) }}" width="50"
-                                                        height="50" alt=""></td>
+                                                        height="50" alt="">
+                                                </td>
+                                                <td>{{ $d->ktp->nik ?? '' }}</td>
                                                 <td>{{ $d->name }}</td>
                                                 <td>{{ $d->email }}</td>
                                                 <td style="text-align: center">
+                                                    <a href="{{ route('adminusers.detail', ['id' => $d->id]) }}"
+                                                        class="btn btn-info"><i class="fas fa-eye"></i></a>
                                                     <a href="{{ route('adminusers.edit', ['id' => $d->id]) }}"
                                                         class="btn btn-success"><i class="fas fa-edit"></i>
-                                                        Edit</a>
+                                                        </a>
                                                     <a href="" class="btn btn-danger" data-toggle="modal"
                                                         data-target="#modal-hapus{{ $d->id }}"><i
                                                             class="fas fa-trash"></i>
-                                                        Delete</a>
+                                                        </a>
                                                 </td>
                                             </tr>
                                             <div class="modal fade" id="modal-hapus{{ $d->id }}">
@@ -89,7 +95,8 @@
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
-                                                            <form action="{{ route('adminuser.delete', ['id' => $d->id]) }}"
+                                                            <form
+                                                                action="{{ route('adminuser.delete', ['id' => $d->id]) }}"
                                                                 method="post">
                                                                 @csrf
                                                                 @method('DELETE')
@@ -110,15 +117,15 @@
                             </div>
                             <!-- /.card-body -->
                             <!--<div class="card-footer clearfix">
-                                                                        <ul class="pagination pagination-sm m-0 float-right">
-                                                                            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>-->
+                                                                                <ul class="pagination pagination-sm m-0 float-right">
+                                                                                    <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                                                    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>-->
                             <!-- /.card -->
                         </div>
                     </div>

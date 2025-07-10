@@ -17,9 +17,7 @@ class DataTableController extends Controller
             $data = $data->latest();
 
             return DataTables::of($data)
-                ->addColumn('no', function ($data) {
-                    return '{{ $loop->iteration }}';
-                })
+                ->addIndexColumn()
                 ->addColumn('foto', function ($data) {
                     return '<img src="' . asset('storage/foto-user/' . $data->image) . '" width="50" height="50" alt="">';
                 })
@@ -31,11 +29,7 @@ class DataTableController extends Controller
                 })
                 ->addColumn('aksi', function ($data) {
                     return '<a href="' . route('adminusers.edit', ['id' => $data->id]) . '"class="btn btn-success"><i class="fas fa-edit"></i>Edit</a>
-                                                    <a href="" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-hapus' . $data->id . '"><i
-                                                            class="fas fa-trash"></i>
-                                                        Delete</a>
-                                                        ';
+                            <a href="" class="btn btn-danger" data-toggle="modal" data-id="' . $data->id . '" data-nama="'.$data->name.'" "><i class="fas fa-trash"></i> Delete</a>';
                 })
                 ->rawColumns(['foto', 'aksi'])
                 ->make(true);
