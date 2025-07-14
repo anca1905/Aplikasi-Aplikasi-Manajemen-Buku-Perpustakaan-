@@ -137,14 +137,14 @@
                     <h1 class="h3 mb-3 fw-normal text-center">Login System</h1>
                     <div class="form-floating turun">
                         <div class="position-relative mb-3">
-                            <input type="email" name="email" class="form-control pr-5" placeholder="Email">
+                            <input type="email" name="email" class="form-control pr-5" placeholder="Email" value="{{ old('email') }}">
                             <i
                                 class="bi bi-person-fill position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
                         </div>
                     </div>
                     <div class="form-floating turun">
                         <div class="position-relative mb-3">
-                            <input type="password" name="password" class="form-control pr-5" placeholder="Password">
+                            <input type="password" name="password" class="form-control pr-5" placeholder="Password" value="{{ old('password') }}">
                             <i
                                 class="bi bi-lock-fill position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
                         </div>

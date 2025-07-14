@@ -1,72 +1,88 @@
-@extends('admin.layout.layout');
+@extends('admin.layout.layout')
 @section('content')
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>General Form</h1>
+                        <h1>Form Buku</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Form</li>
+                            <li class="breadcrumb-item active">Form Buku</li>
                         </ol>
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
+            </div>
         </section>
+
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('adminusers.store') }}" method="post">
+                <form action="{{ route('adminbuku.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
-                        <!-- left column -->
-                        <div class="col-md-6">
-                            <!-- general form elements -->
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-8">
                             <div class="card card-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Quick Example</h3>
+                                    <h3 class="card-title">Data Buku</h3>
                                 </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
                                 <form>
+
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Nama</label>
-                                            <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
-                                                placeholder="Enter Nama">
-                                                @error('nama')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
+                                            <label for="cover">Cover Buku</label>
+                                            <input type="file" class="form-control-file" name="cover" id="cover">
+                                            @error('cover')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                                                placeholder="Enter Email">
-                                                @error('email')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
+                                            <label for="isbn">ISBN</label>
+                                            <input type="text" class="form-control" name="ISBN" id="isbn"
+                                                placeholder="Enter ISBN" value="{{ old('ISBN') }}">
+                                            @error('ISBN')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                                                placeholder="Password">
-                                                @error('password')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
+                                            <label for="judul">Judul Buku</label>
+                                            <input type="text" class="form-control" name="judul" id="judul"
+                                                placeholder="Enter Judul Buku" value="{{ old('judul') }}">
+                                            @error('judul')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="penulis">Penulis</label>
+                                            <input type="text" class="form-control" name="penulis" id="penulis"
+                                                placeholder="Enter Penulis" value="{{ old('penulis') }}">
+                                            @error('penulis')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tahun">Tahun Terbit</label>
+                                            <input type="number" class="form-control" name="tahun" id="tahun"
+                                                placeholder="Enter Tahun" value="{{ old('tahun') }}">
+                                            @error('tahun')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kategori">Kategori</label>
+                                            <input type="text" class="form-control" name="kategori" id="kategori"
+                                                placeholder="Kategori" value="{{ old('kategori') }}">
+                                            @error('kategori')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
-                                    <!-- /.card-body -->
-
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    <div class="card-footer text-right">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </form>
                             </div>
-                            <!-- /.card -->
                         </div>
                     </div>
                 </form>

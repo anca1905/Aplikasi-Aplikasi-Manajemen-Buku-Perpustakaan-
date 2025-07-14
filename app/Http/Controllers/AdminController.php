@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
@@ -28,17 +29,9 @@ class AdminController extends Controller
     {
         return view('admin.create');
     }
-    public function store(Request $request)
+    public function store(AdminRequest $request)
     {
-
-        $validator = Validator::make($request->all(), [
-            'foto'      => 'required|mimes:png,jpg|max:2048',
-            'nama'  => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
+        $data = $request->validated();
 
         $foto = $request->file('foto');
         $filename = date('Y-m-d') . $foto->getClientOriginalName();
@@ -70,27 +63,20 @@ class AdminController extends Controller
         return view('admin.detail', compact('data'));
     }
 
-    public function update(Request $request, $id)
+    public function update(AdminRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'foto'      => 'nullable|mimes:png,jpg|max:2048',
-            'nama'      => 'required',
-            'email'     => 'required|email',
-            'password'  => 'nullable',
-        ]);
-
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
 
         $find = User::find($id);
 
-        $data['name']       = $request->nama;
-        $data['email']      = $request->email;
+        $data = $request->validated();
 
+        $data['name'] = $request->nama;
+        $data['email'] = $request->email;
 
-
-
-        if ($request->password) {
-            $data['password']   = Hash::make($request->password);
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']); // hapus dari array biar tidak update password jadi null
         }
         $foto = $request->file('foto');
 
@@ -99,8 +85,8 @@ class AdminController extends Controller
             $filename = date('Y-m-d') . $foto->getClientOriginalName();
             $path = 'foto-user/' . $filename;
 
-            if($find->image){
-                Storage::disk('public')->delete('foto-user/'.$find->image);
+            if ($find->image) {
+                Storage::disk('public')->delete('foto-user/' . $find->image);
             }
 
             Storage::disk('public')->put($path, file_get_contents($foto));
@@ -113,12 +99,44 @@ class AdminController extends Controller
         return redirect()->route('adminuser');
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $data = User::find($id);
 
         $data->delete();
 
-        return redirect()->route('adminuser');
+        return redirect()->route('adminserverside');
+    }
+
+    public function serverside(Request $request)
+    {
+
+        if ($request->ajax()) {
+
+            $data = new User();
+            $data = $data->latest();
+
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('foto', function ($data) {
+                    return '<img src="' . asset('storage/foto-user/' . $data->image) . '" width="50" height="50" alt="">';
+                })
+                ->addColumn('nama', function ($data) {
+                    return $data->name;
+                })
+                ->addColumn('email', function ($data) {
+                    return $data->email;
+                })
+                ->addColumn('aksi', function ($data) {
+                    return '<a href="' . route('adminusers.detail', ['id' => $data->id]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            <a href="' . route('adminusers.edit', ['id' => $data->id]) . '"class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            <a href="" class="btn btn-danger" data-toggle="modal" data-id="' . $data->id . '" data-nama="' . $data->name . '" "><i class="fas fa-trash"></i></a>
+                            ';
+                })
+                ->rawColumns(['foto', 'aksi'])
+                ->make(true);
+        }
+
+        return view('admin.tabel', compact('request'));
     }
 }

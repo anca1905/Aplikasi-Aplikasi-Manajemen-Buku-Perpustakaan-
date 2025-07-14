@@ -23,8 +23,8 @@
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="{{ asset('img/logo.png') }}" alt="AdminLTELogo"
-                height="60" width="60">
+            <img class="animation__wobble" src="{{ asset('img/logo.png') }}" alt="AdminLTELogo" height="60"
+                width="60">
         </div>
 
         <!-- Navbar -->
@@ -182,7 +182,8 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('img/profil/default.png') }}" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('storage/foto-user/' . (Auth::user()->image ?? 'default.png')) }}"
+                            class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -208,8 +209,10 @@
                         data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+
                         <li class="nav-item ">
-                            <a href="{{ route('admindashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? "active" : "" }} ">
+                            <a href="{{ route('officerdashboard') }}"
+                                class="nav-link {{ request()->is('officer/dashboard') ? 'active' : '' }} ">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Beranda
@@ -218,52 +221,56 @@
                             </a>
 
                         </li>
+                        @if (auth()->user()->Role == 'Admin')
+                            <li class="nav-item">
+                                <a href="#"
+                                    class="nav-link {{ request()->is('admin/data_buku') || request()->is('admin/edit_buku/*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-book"></i>
+                                    <p>
+                                        Buku
+                                    </p>
+                                    <i class="right fas fa-angle-left"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('adminbuku') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Data Buku</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admincreate_buku') }}" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Tambah Buku</p>
+                                        </a>
+                                    </li>
+                                </ul>
 
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-layer-group"></i>
+                                    <p>
+                                        Kategori
+                                    </p>
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('adminuser') }}"
+                                    class="nav-link {{ request()->is('admin/users') || request()->is('admin/edit/*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Pengguna
+                                    </p>
+                                </a>
+
+                            </li>
+                        @endif
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('admin/data_buku') || request()->is('admin/edit_buku/*') ? "active" : "" }}">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Buku
-                                </p>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('adminbuku') }}" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Data Buku</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Tambah Buku</p>
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-layer-group"></i>
-                                <p>
-                                    Kategori
-                                </p>
-                            </a>
-
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('adminuser') }}" class="nav-link {{ request()->is('admin/users') || request()->is('admin/edit/*') ? "active" : "" }}">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Pengguna
-                                </p>
-                            </a>
-
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('officerofficer.index') }}"
+                                class="nav-link {{ request()->is('officer/index') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-scroll"></i>
                                 <p>
                                     Transaksi
@@ -272,7 +279,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
+                                    <a href="{{ route('officerofficer.index') }}" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Peminjaman</p>
                                     </a>
@@ -285,29 +292,31 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-chart-line"></i>
-                                <p>
-                                    Laporan
-                                </p>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="./index.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Laporan Buku</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Laporan Peminjaman</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @if (auth()->user()->Role == 'Admin')
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-chart-line"></i>
+                                    <p>
+                                        Laporan
+                                    </p>
+                                    <i class="right fas fa-angle-left"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="./index.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Laporan Buku</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="./index2.html" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Laporan Peminjaman</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-cog"></i>
@@ -325,8 +334,15 @@
             <!-- /.sidebar -->
         </aside>
 
-        @yield('content');
+        @if (auth()->user()->Role == 'Admin')
+            @yield('content.admin');
+        @endif
 
+        @if (auth()->user()->Role == 'Petugas')
+            @yield('content.officer');
+        @endif
+
+        @yield('content')
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->

@@ -10,6 +10,7 @@ class Buku extends Model
     use HasFactory;
 
     protected $fillable = [
+        'image',
         'judul',
         'ISBN',
         'penulis',

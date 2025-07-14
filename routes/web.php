@@ -5,8 +5,11 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DataTableController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OfficerController;
+use App\Http\Middleware\CekRole;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\DataCollector\DataCollectorInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,13 +30,11 @@ Route::post('login/proses', [LoginController::class, 'login_proses'])->name('log
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 //Route Admin
-Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekrole:Admin'], 'as' => 'admin'], function () {
 
-    //Dashboard
-    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
 
     //User
-    Route::get('users', [AdminController::class, 'user'])->name('user');
+    Route::get('users', [AdminController::class, 'serverside'])->name('user');
     Route::get('create', [AdminController::class, 'create'])->name('users.create');
     Route::post('store', [AdminController::class, 'store'])->name('users.store');
     Route::get('edit/{id}', [AdminController::class, 'edit'])->name('users.edit');
@@ -41,15 +42,26 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin'], f
     Route::put('update/{id}', [AdminController::class, 'update'])->name('users.update');
     Route::delete('delete/{id}', [AdminController::class, 'delete'])->name('user.delete');
 
-    //Data Tabel Server Side
-    Route::get('server_table', [DataTableController::class, 'serverside'])->name('serverside');
-
     //Import Excel
     Route::get('import', [ImportController::class, 'index'])->name('import');
     Route::post('import-proses', [ImportController::class, 'proses'])->name('import_proses');
 
     //Buku
-    Route::get('data_buku', [BukuController::class, 'buku'])->name('buku');
+    Route::get('data_buku', [BukuController::class, 'bukuserver'])->name('buku');
     Route::get('edit_buku/{id}', [BukuController::class, 'edit'])->name('edit_buku');
     Route::get('create_buku', [BukuController::class, 'create'])->name('create_buku');
+    Route::post('store_buku', [BukuController::class, 'store'])->name('buku.store');
+    Route::get('detail_buku/{id}', [BukuController::class, 'detail'])->name('buku.detail');
+    Route::put('update_buku/{id}', [BukuController::class, 'update'])->name('buku.update');
+    Route::delete('delete_buku/{id}', [BukuController::class, 'delete'])->name('buku.delete');
 });
+
+Route::group(['prefix' => 'officer', 'middleware' => ['auth', 'cekrole:Petugas,Admin'], 'as' => 'officer'], function () {
+    
+    //Dashboard
+    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+
+    Route::get('index', [OfficerController::class, 'index'])->name('officer.index');
+});
+
+

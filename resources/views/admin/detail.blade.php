@@ -20,9 +20,6 @@
         </section>
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ route('adminusers.update', ['id' => $data->id]) }}" method="post">
-                    @csrf
-                    @method('PUT')
                     <div class="row">
                         <!-- left column -->
                         <div class="col-md-6">
@@ -37,7 +34,7 @@
                                     <div class="card-body">
                                         <div class="form-group">
                                             <img src="{{ asset('storage/foto-user/' . $data->image) }}" width="100"
-                                                height="auto" alt="">
+                                                height="auto" alt="Foto Profile {{ Auth::user()->name }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama</label>
@@ -75,7 +72,6 @@
                                         </table>
                                     </div>
                                     <!-- /.card-body -->
-                                </form>
                             </div>
                             <!-- /.card -->
                         </div>

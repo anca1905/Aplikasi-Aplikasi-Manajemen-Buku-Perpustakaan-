@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('login');
     }
 
-    public function login_proses(Request $request){
+    public function login_proses(Request $request)
+    {
 
         $request->validate([
             'email'     => 'required',
@@ -24,15 +26,21 @@ class LoginController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            return redirect()->route('admindashboard');
-        }else{
+            $user = Auth::user();
+            
+            if ($user->Role == "Admin") {
+                return redirect()->route('officerdashboard');
+            } elseif ($user->Role == "Petugas") {
+                return redirect()->route('officerofficer.index');
+            }
+        } else {
             return redirect()->route('login')->with('failed', 'Email atau Password Salah');
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect()->route('login')->with('success', 'Kamu berhasil Logout');
     }
-
 }

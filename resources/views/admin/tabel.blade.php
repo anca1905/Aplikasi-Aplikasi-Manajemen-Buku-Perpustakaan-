@@ -43,10 +43,41 @@
                                             <th>Email</th>
                                             <th style="width: 200px">Aksi</th>
                                         </tr>
+
                                     </thead>
                                     <tbody>
                                     </tbody>
                                 </table>
+                                <div class="modal fade" id="modalHapus">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Default Modal</h4>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p> Apakah anda yakin ingin menghapus user <strong
+                                                        id="namaPengguna"></strong>
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <form id="formHapus" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Batal</button>
+                                                    <button type="submit" class="btn btn-primary">Iya,
+                                                        Hapus</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
                             </div>
                             <!-- /.card-body -->
                             <!--<div class="card-footer clearfix">                                                          </div>-->
@@ -74,12 +105,13 @@
                 searching: true,
                 ordering: false,
                 ajax: {
-                    url: "{{ route('adminserverside') }}"
+                    url: "{{ route('adminuser') }}"
                 },
-                columns: [
-                    {
-                        data: 'no',
-                        name: 'no',
+                columns: [{
+                        data: 'DT_RowIndex', 
+                        name: 'DT_RowIndex', 
+                        orderable: false, 
+                        searchable: false, 
                     },
                     {
                         data: 'foto',
@@ -100,5 +132,17 @@
                 ]
             });
         }
+    </script>
+
+    <script>
+        $(document).on('click', '.btn-danger', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var nama = $(this).data('nama');
+
+            $('#formHapus').attr('action', '/admin/delete/' + id);
+            $('#namaPengguna').text(nama);
+            $('#modalHapus').modal('show');
+        });
     </script>
 @endsection
