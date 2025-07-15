@@ -80,6 +80,9 @@ class BukuController extends Controller
             $data = Buku::query();
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('image', function($data) {
+                    return '<img src="' . asset('storage/buku/' . $data->image) . '" width="50" height="auto" alt="">';
+                })
                 ->addColumn('judul', function ($data) {
                     return $data->judul;
                 })
@@ -110,7 +113,7 @@ class BukuController extends Controller
                         $query->where('penulis', 'like', "%" . $search . "%");
                     }
                 })
-                ->rawColumns(['aksi'])
+                ->rawColumns(['aksi', 'image'])
                 ->make(true);
         }
 
@@ -152,5 +155,11 @@ class BukuController extends Controller
         $find->delete($id);
 
         return redirect()->route('adminbuku');
+    }
+
+    public function jumlahBuku(){
+        $jumlah = Buku::count();
+
+        return view('officer.dashboard', ['jumlah' => $jumlah]);
     }
 }

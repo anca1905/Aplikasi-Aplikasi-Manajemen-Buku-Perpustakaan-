@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminRequest;
+use App\Models\Buku;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,14 @@ use Yajra\DataTables\Facades\DataTables;
 
 class AdminController extends Controller
 {
+    public function index()
+    {
+        $jumlah = Buku::count();
+        $users = User::count();
+
+        return view('admin.dashboard', compact('jumlah', 'users'));
+    }
+
     public function user(Request $request)
     {
         $data = new User;
@@ -105,7 +114,7 @@ class AdminController extends Controller
 
         $data->delete();
 
-        return redirect()->route('adminserverside');
+        return redirect()->route('adminuser');
     }
 
     public function serverside(Request $request)

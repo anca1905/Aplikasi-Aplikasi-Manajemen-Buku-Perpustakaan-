@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DataTableController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficerController;
 use App\Http\Middleware\CekRole;
@@ -54,14 +55,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'cekrole:Admin'], 'a
     Route::get('detail_buku/{id}', [BukuController::class, 'detail'])->name('buku.detail');
     Route::put('update_buku/{id}', [BukuController::class, 'update'])->name('buku.update');
     Route::delete('delete_buku/{id}', [BukuController::class, 'delete'])->name('buku.delete');
+
+    //kategori
+    Route::get('kategori', [KategoriController::class, 'index'])->name('kategori.index');
+    Route::delete('kategori/hapus/{id}', [KategoriController::class, 'hapus'])->name('kategori.hapus');
+    Route::post('kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
 });
 
 Route::group(['prefix' => 'officer', 'middleware' => ['auth', 'cekrole:Petugas,Admin'], 'as' => 'officer'], function () {
     
     //Dashboard
-    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+    Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
 
-    Route::get('index', [OfficerController::class, 'index'])->name('officer.index');
+    Route::get('index', [OfficerController::class, 'peminjaman'])->name('officer.index');
 });
 
 

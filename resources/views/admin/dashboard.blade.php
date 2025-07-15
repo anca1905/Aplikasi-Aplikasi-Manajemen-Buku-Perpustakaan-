@@ -31,9 +31,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Jumlah Buku</span>
-                                <span class="info-box-number">
-                                    1,230
-                                </span>
+                                <span class="info-box-number">{{ $jumlah }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -61,7 +59,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Jumlah Anggota</span>
-                                <span class="info-box-number">200</span>
+                                <span class="info-box-number">{{ $users }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

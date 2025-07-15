@@ -34,6 +34,7 @@
                                     <thead>
                                         <tr style="text-align: center">
                                             <th style="width: 10px">No</th>
+                                            <th>Cover</th>
                                             <th>ISBN</th>
                                             <th>Judul Buku</th>
                                             <th>Penulis Buku</th>

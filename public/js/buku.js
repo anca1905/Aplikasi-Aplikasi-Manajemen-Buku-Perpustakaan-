@@ -21,6 +21,10 @@ function loadData() {
             searchable: false,
         },
         {
+            data: 'image',
+            name: 'image',
+        },
+        {
             data: 'ISBN',
             name: 'ISBN',
         },

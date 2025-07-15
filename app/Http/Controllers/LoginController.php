@@ -31,7 +31,7 @@ class LoginController extends Controller
             if ($user->Role == "Admin") {
                 return redirect()->route('officerdashboard');
             } elseif ($user->Role == "Petugas") {
-                return redirect()->route('officerofficer.index');
+                return redirect()->route('officerdashboard');
             }
         } else {
             return redirect()->route('login')->with('failed', 'Email atau Password Salah');
