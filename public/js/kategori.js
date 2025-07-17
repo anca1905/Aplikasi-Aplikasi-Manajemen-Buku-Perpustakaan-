@@ -34,10 +34,6 @@ function loadData() {
             name: 'jumlah',
         },
         {
-            data: 'tanggal',
-            name: 'tanggal',
-        },
-        {
             data: 'aksi',
             name: 'aksi ',
         },

@@ -10,11 +10,19 @@ class Buku extends Model
     use HasFactory;
 
     protected $fillable = [
+
         'image',
         'judul',
         'ISBN',
         'penulis',
         'tahun',
-        'kategori',
+        'kategori_id',
+        
     ];
+
+    public function kategori(){
+        return $this->hasOne(Kategori::class);
+    }
+
+
 }

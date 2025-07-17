@@ -19,6 +19,6 @@ class CekRole
             return $next($request);
         }
 
-        abort('401');
+        abort('403');
     }
 }

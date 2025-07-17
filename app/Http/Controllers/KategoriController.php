@@ -12,17 +12,18 @@ class KategoriController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $jumlah = Kategori::count();
+            
             $data = new Kategori();
             $data = $data->latest();
+            
 
-            return DataTables::of($data, $jumlah)
+            return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('kategori', function ($data) {
-                    return $data->kategori;
+                ->editColumn('kategori', function ($data) {
+                    return $data->kategori . $data->created_at;
                 })
-                ->addColumn('deskripsi', function ($data) {
-                    return $data->deskripsi;
+                ->addColumn('jumlah', function ($data) {
+                    return $data->book()->count();
                 })
                 ->addColumn('aksi', function ($data) {
                     return '<a href="' . route('adminusers.detail', ['id' => $data->id]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>

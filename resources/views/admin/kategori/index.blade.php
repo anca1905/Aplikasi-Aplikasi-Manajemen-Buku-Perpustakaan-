@@ -22,13 +22,6 @@
         </section>
         <section class="content">
             <div class="container-fluid mt-4"> {{-- Gunakan container-fluid untuk lebar penuh dan margin top --}}
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="mb-0">Daftar Kategori Buku</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addCategoryModal">
-                        <i class="bi bi-plus-circle me-2"></i> Tambah Kategori Baru
-                    </button>
-                </div>
 
                 @if (session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -46,9 +39,6 @@
 
                 {{-- Tabel Daftar Kategori --}}
                 <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-white pt-3 pb-3">
-                        <h5 class="card-title mb-0">Semua Kategori</h5>
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover table-striped" id="tabelKategori" data-url="{{ route('adminkategori.index') }}"> {{-- ID untuk DataTable jika digunakan --}}
@@ -58,8 +48,7 @@
                                         <th scope="col">Nama Kategori</th>
                                         <th scope="col">Deskripsi</th>
                                         <th scope="col">Jumlah Buku</th>
-                                        <th scope="col">Tanggal Dibuat</th>
-                                        <th scope="col">Aksi</th>
+                                        <th scope="col" style="width: 200px">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

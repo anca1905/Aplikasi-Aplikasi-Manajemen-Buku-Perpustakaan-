@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Buku;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,8 +12,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bukus', function (Blueprint $table) {
-            $table->string('image')->nullable()->after('kategori_id');
+        Schema::table('kategoris', function (Blueprint $table) {
+            $table->foreignIdFor(Buku::class)->constrained()->cascadeOnDelete();
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('bukus', function (Blueprint $table) {
-            //
+        Schema::table('kategoris', function (Blueprint $table) {
+            $table->foreignIdFor(Buku::class)->constrained()->cascadeOnDelete();
         });
     }
 };

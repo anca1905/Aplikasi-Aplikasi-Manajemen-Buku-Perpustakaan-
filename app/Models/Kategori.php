@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     use HasFactory;
+
+    public function book(){
+        return $this->hasMany(Buku::class);
+    }
 }

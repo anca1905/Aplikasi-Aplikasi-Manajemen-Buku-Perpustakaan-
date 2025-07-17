@@ -37,23 +37,11 @@ class BukuController extends Controller
         return view('admin.buku.detail', compact('data'));
     }
 
-    public function store(Request $request)
+    public function store(BukuRequest $request)
     {
 
 
-        $validator = Validator::make($request->all(), [
-            'cover'      => 'required|mimes:png,jpg|max:2048',
-            'ISBN'  => 'required',
-            'judul'  => 'required',
-            'penulis'  => 'required',
-            'tahun' => 'required',
-            'kategori' => 'required',
-        ]);
-
-
-
-        if ($validator->fails()) return redirect()->back()->withInput()->withErrors($validator);
-
+        $data = $request->validated();
         $foto = $request->file('cover');
         $filename = date('Y-m-d') . $foto->getClientOriginalName();
         $path = 'buku/' . $filename;
@@ -99,8 +87,8 @@ class BukuController extends Controller
                     return $data->kategori;
                 })
                 ->addColumn('aksi', function ($data) {
-                    return '<a href="' . route('adminbuku.detail', ['id' => $data->id]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>
-                            <a href="' . route('adminedit_buku', ['id' => $data->id]) . '"class="btn btn-success"><i class="fas fa-edit"></i></a>
+                    return '<a href="' . route('adminbuku.detail', ['id' => $data->id_buku]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            <a href="' . route('adminedit_buku', ['id' => $data->id_buku]) . '"class="btn btn-success"><i class="fas fa-edit"></i></a>
                             <a href="" class="btn btn-danger" data-toggle="modal" data-id="' . $data->id . '" data-judul="' . $data->judul . '" "><i class="fas fa-trash"></i></a>
                             ';
                 })
