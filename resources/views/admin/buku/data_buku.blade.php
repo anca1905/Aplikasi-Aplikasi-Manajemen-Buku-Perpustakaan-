@@ -1,4 +1,4 @@
-@extends('admin.layout.layout');
+@extends('admin.layout.layout')
 @section('tabelcss')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
 @endsection

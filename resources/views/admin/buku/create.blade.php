@@ -23,7 +23,7 @@
                     @csrf
                     <div class="row justify-content-md-center">
                         <div class="col-md-8">
-                            <div class="card card-primary">
+                            <div class="card card-success">
                                 <div class="card-header">
                                     <h3 class="card-title">Data Buku</h3>
                                 </div>
@@ -70,12 +70,12 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label for="kategori">Kategori</label>
-                                            <input type="text" class="form-control" name="kategori" id="kategori"
-                                                placeholder="Kategori" value="{{ old('kategori') }}">
-                                            @error('kategori')
-                                                <small class="text-danger">{{ $message }}</small>
-                                            @enderror
+                                            <label for="tahun">Kategori</label>
+                                            <select class="form-control" name="kategori">
+                                                @foreach ($kategori as $k)
+                                                    <option>{{ $k->kategori }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="card-footer text-right">

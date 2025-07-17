@@ -1,7 +1,7 @@
 @extends('admin.layout.layout')
 
 @section('tabelcss')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css" />
 @endsection
 
 @section('content')
@@ -11,12 +11,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Pengguna</h1>
+                    <h1>Data Sirkulasi Peminjaman</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Data Pengguna</li>
+                        <li class="breadcrumb-item active">Sirkulasi</li>
                     </ol>
                 </div>
             </div>
@@ -30,29 +30,31 @@
                 <div class="col-md-12">
                     <div class="card shadow-sm">
                         <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-                            <h3 class="card-title mb-0">Daftar Pengguna</h3>
-                            <a href="{{ route('adminusers.create') }}" class="btn btn-info btn-sm">
-                                <i class="fas fa-plus mr-1"></i> Tambah Pengguna
-                            </a>
+                            <h3 class="card-title mb-0"><i class="fas fa-book-reader me-2"></i> Daftar Sirkulasi</h3>
                         </div>
 
                         <div class="card-body">
-                            <table class="table table-bordered table-hover" id="serverside" data-url="{{ route('adminuser') }}">
-                                <thead class="thead-light text-center">
+                            <table class="table table-bordered table-hover table-striped" id="serverside" data-url="{{ route('adminuser') }}">
+                                <thead class="table-success text-center">
                                     <tr>
-                                        <th style="width: 10%">NIK</th>
-                                        <th>Foto</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
+                                        <th style="width: 5%">No</th>
+                                        <th>ID SKL</th>
+                                        <th>Nama Buku</th>
+                                        <th>Peminjam</th>
+                                        <th>Tanggal Pinjam</th>
+                                        <th>Jatuh Tempo</th>
+                                        <th>Denda</th>
                                         <th style="width: 20%">Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    {{-- Akan diisi melalui AJAX dari file JS --}}
+                                </tbody>
                             </table>
                         </div>
                     </div>
 
-                    <!-- Modal Konfirmasi Hapus -->
+                    <!-- Modal Hapus -->
                     <div class="modal fade" id="modalHapus" tabindex="-1" role="dialog" aria-labelledby="modalLabelHapus" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -63,7 +65,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Apakah Anda yakin ingin menghapus pengguna <strong id="namaPengguna"></strong>?</p>
+                                    <p>Apakah Anda yakin ingin menghapus data peminjaman oleh <strong id="namaPengguna"></strong>?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <form id="formHapus" method="post">
@@ -85,6 +87,6 @@
 @endsection
 
 @section('tablejs')
-    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
     <script src="{{ asset('js/users.js') }}"></script>
 @endsection

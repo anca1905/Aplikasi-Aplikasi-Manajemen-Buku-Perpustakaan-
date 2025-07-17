@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OfficerController extends Controller
@@ -11,6 +13,8 @@ class OfficerController extends Controller
     }
 
     public function peminjaman(){
-        return view('officer.index');
+        $data = User::all();
+        $buku = Buku::all();
+        return view('officer.index', compact('data', 'buku'));
     }
 }

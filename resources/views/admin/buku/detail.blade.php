@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div class="row justify-content-md-center">
                     <div class="col-md-8">
-                        <div class="card card-primary">
+                        <div class="card card-success">
                             <div class="card-header">
                                 <h3 class="card-title">Data Buku</h3>
                             </div>
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="kategori">Kategori</label>
-                                    <p>{{ $data->kategori }}</p>
+                                    <p>{{ $data->kategori->kategori }}</p>
                                 </div>
                             </div>
                         </div>

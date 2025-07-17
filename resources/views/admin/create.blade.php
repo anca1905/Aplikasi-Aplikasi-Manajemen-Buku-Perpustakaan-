@@ -1,83 +1,80 @@
-@extends('admin.layout.layout');
-@section('content')
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>General Form</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Form</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
-        <section class="content">
-            <div class="container-fluid">
-                <form action="{{ route('adminusers.store') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-                        <!-- left column -->
-                        <div class="col-md-6">
-                            <!-- general form elements -->
-                            <div class="card card-primary">
-                                <div class="card-header">
-                                    <h3 class="card-title">Quick Example</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <!-- form start -->
-                                <form>
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Foto Profile</label>
-                                            <input type="file" class="form-control" name="foto" id="exampleInputEmail1">
-                                                @error('foto')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Nama</label>
-                                            <input type="text" class="form-control" name="nama" id="exampleInputEmail1"
-                                                placeholder="Enter Nama" value="{{ old('nama') }}">
-                                                @error('nama')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                                                placeholder="Enter Email" value="{{ old('email') }}">
-                                                @error('email')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Password</label>
-                                            <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                                                placeholder="Password" value="{{ old('password') }}">
-                                                @error('password')
-                                                    <small>{{ $message }}</small>
-                                                @enderror
-                                        </div>
-                                    </div>
-                                    <!-- /.card-body -->
+@extends('admin.layout.layout')
 
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                </form>
+@section('content')
+<div class="content-wrapper">
+    <!-- Header -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Tambah Pengguna</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Tambah Pengguna</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <form action="{{ route('adminusers.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card shadow">
+                            <div class="card-header bg-success text-white">
+                                <h3 class="card-title mb-0">Form Data Pengguna</h3>
                             </div>
-                            <!-- /.card -->
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="foto">Foto Profil</label>
+                                    <input type="file" class="form-control-file" name="foto" id="foto">
+                                    @error('foto')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nama">Nama Lengkap</label>
+                                    <input type="text" class="form-control" name="nama" id="nama"
+                                        placeholder="Masukkan Nama Lengkap" value="{{ old('nama') }}">
+                                    @error('nama')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Alamat Email</label>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        placeholder="Masukkan Email" value="{{ old('email') }}">
+                                    @error('email')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password">Kata Sandi</label>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                        placeholder="Masukkan Password">
+                                    @error('password')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-success">Simpan</button>
+                                <a href="{{ route('adminuser') }}" class="btn btn-secondary">Batal</a>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </section>
-    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>
 @endsection

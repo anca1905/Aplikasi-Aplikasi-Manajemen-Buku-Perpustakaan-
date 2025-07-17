@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BukuRequest;
 use App\Models\Buku;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -27,10 +28,13 @@ class BukuController extends Controller
 
     public function create()
     {
-        return view('admin.buku.create');
+        $kategori = Kategori::get();
+
+        return view('admin.buku.create', compact('kategori'));
     }
 
-    public function detail($id){
+    public function detail($id)
+    {
 
         $data = Buku::find($id);
 
@@ -42,6 +46,7 @@ class BukuController extends Controller
 
 
         $data = $request->validated();
+
         $foto = $request->file('cover');
         $filename = date('Y-m-d') . $foto->getClientOriginalName();
         $path = 'buku/' . $filename;
@@ -53,8 +58,7 @@ class BukuController extends Controller
         $data['judul']       = $request->judul;
         $data['penulis']       = $request->penulis;
         $data['tahun']       = $request->tahun;
-        $data['kategori']      = $request->kategori;
-
+        $data['kategori_id']      = $request->kategori;
         Buku::create($data);
 
         return redirect()->route('adminbuku');
@@ -65,10 +69,10 @@ class BukuController extends Controller
         if ($request->ajax()) {
 
             $search = $request->input('search')['value'];
-            $data = Buku::query();
+            $data = Buku::with('kategori')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('image', function($data) {
+                ->addColumn('image', function ($data) {
                     return '<img src="' . asset('storage/buku/' . $data->image) . '" width="50" height="auto" alt="">';
                 })
                 ->addColumn('judul', function ($data) {
@@ -84,11 +88,11 @@ class BukuController extends Controller
                     return $data->tahun;
                 })
                 ->addColumn('kategori', function ($data) {
-                    return $data->kategori;
+                    return $data->kategori->kategori;
                 })
                 ->addColumn('aksi', function ($data) {
-                    return '<a href="' . route('adminbuku.detail', ['id' => $data->id_buku]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>
-                            <a href="' . route('adminedit_buku', ['id' => $data->id_buku]) . '"class="btn btn-success"><i class="fas fa-edit"></i></a>
+                    return '<a href="' . route('adminbuku.detail', ['id' => $data->id]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>
+                            <a href="' . route('adminedit_buku', ['id' => $data->id]) . '"class="btn btn-success"><i class="fas fa-edit"></i></a>
                             <a href="" class="btn btn-danger" data-toggle="modal" data-id="' . $data->id . '" data-judul="' . $data->judul . '" "><i class="fas fa-trash"></i></a>
                             ';
                 })
@@ -137,7 +141,8 @@ class BukuController extends Controller
         return redirect()->route('adminbuku');
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $find = Buku::find($id);
 
         $find->delete($id);
@@ -145,7 +150,8 @@ class BukuController extends Controller
         return redirect()->route('adminbuku');
     }
 
-    public function jumlahBuku(){
+    public function jumlahBuku()
+    {
         $jumlah = Buku::count();
 
         return view('officer.dashboard', ['jumlah' => $jumlah]);

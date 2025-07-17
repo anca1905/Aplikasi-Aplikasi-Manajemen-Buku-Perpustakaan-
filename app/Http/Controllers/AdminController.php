@@ -41,7 +41,7 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         $data = $request->validated();
-
+ 
         $foto = $request->file('foto');
         $filename = date('Y-m-d') . $foto->getClientOriginalName();
         $path = 'foto-user/' . $filename;
@@ -139,13 +139,12 @@ class AdminController extends Controller
                 ->addColumn('aksi', function ($data) {
                     return '<a href="' . route('adminusers.detail', ['id' => $data->id]) . '"class="btn btn-info"><i class="fas fa-eye"></i></a>
                             <a href="' . route('adminusers.edit', ['id' => $data->id]) . '"class="btn btn-success"><i class="fas fa-edit"></i></a>
-                            <a href="" class="btn btn-danger" data-toggle="modal" data-id="' . $data->id . '" data-nama="' . $data->name . '" "><i class="fas fa-trash"></i></a>
-                            ';
+                            <a href="" class="btn btn-danger" data-toggle="modal" data-id="' . $data->id . '" data-nama="' . $data->name . '" "><i class="fas fa-trash"></i></a>';
                 })
                 ->rawColumns(['foto', 'aksi'])
                 ->make(true);
         }
 
-        return view('admin.tabel', compact('request'));
+        return view('admin.users', compact('request'));
     }
 }

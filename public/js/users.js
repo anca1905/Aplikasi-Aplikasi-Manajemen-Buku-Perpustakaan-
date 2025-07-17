@@ -17,11 +17,8 @@ function loadData() {
             url: url
         },
         columns: [{
-            data: 'DT_RowIndex',
-            name: 'DT_RowIndex',
-            orderable: false,
-            searchable: false,
-        },
+            data: 'nik',
+            name: 'nik',        },
         {
             data: 'foto',
             name: 'foto',

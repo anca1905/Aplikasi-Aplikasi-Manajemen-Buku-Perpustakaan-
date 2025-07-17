@@ -20,7 +20,7 @@ class KategoriController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('kategori', function ($data) {
-                    return $data->kategori . $data->created_at;
+                    return $data->kategori;
                 })
                 ->addColumn('jumlah', function ($data) {
                     return $data->book()->count();

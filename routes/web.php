@@ -7,6 +7,7 @@ use App\Http\Controllers\ImportController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OfficerController;
+use App\Http\Controllers\SirkulasiController;
 use App\Http\Middleware\CekRole;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -66,8 +67,9 @@ Route::group(['prefix' => 'officer', 'middleware' => ['auth', 'cekrole:Petugas,A
     
     //Dashboard
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
-
+    Route::get('sirkulasi', [SirkulasiController::class, 'index'])->name('sirkulasi.index');
     Route::get('index', [OfficerController::class, 'peminjaman'])->name('officer.index');
+    Route::post('store', [SirkulasiController::class, 'store'])->name('sirkulasi.store');
 });
 
 
