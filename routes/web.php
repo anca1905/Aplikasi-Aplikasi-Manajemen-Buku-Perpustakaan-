@@ -68,6 +68,7 @@ Route::group(['prefix' => 'officer', 'middleware' => ['auth', 'cekrole:Petugas,A
     //Dashboard
     Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('sirkulasi', [SirkulasiController::class, 'index'])->name('sirkulasi.index');
+    Route::get('sirkulasi/table', [SirkulasiController::class, 'table'])->name('sirkulasi.table');
     Route::get('index', [OfficerController::class, 'peminjaman'])->name('officer.index');
     Route::post('store', [SirkulasiController::class, 'store'])->name('sirkulasi.store');
 });

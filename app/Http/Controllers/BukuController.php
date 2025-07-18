@@ -69,7 +69,7 @@ class BukuController extends Controller
         if ($request->ajax()) {
 
             $search = $request->input('search')['value'];
-            $data = Buku::with('kategori')->get();
+            $data = Buku::with('kategori');
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('image', function ($data) {

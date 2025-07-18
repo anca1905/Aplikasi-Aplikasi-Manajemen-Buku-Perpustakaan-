@@ -16,6 +16,16 @@ class Sirkulasi extends Model
         'noHp',
         'tgl_pinjam',
         'tgl_kembali',
-        
+
     ];
+
+    public function buku()
+    {
+        return $this->belongsTo(Buku::class, 'buku_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

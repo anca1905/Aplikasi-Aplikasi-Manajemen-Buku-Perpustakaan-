@@ -60,7 +60,7 @@
                                     <label for="buku_id" class="form-label">Pilih Buku</label>
                                     <div class="input-group">
                                         <span class="input-group-text"><i class="fas fa-book"></i></span>
-                                        <select class="form-select" id="buku_id" name="buku_id">
+                                        <select class="form-select" id="buku_id" name="buku_id[]" multiple required>
                                             <option disabled>Pilih Buku (bisa lebih dari satu)...</option>
                                             @foreach ($buku as $item)
                                                 <option value="{{ $item->id }}">{{ $item->judul }}</option>

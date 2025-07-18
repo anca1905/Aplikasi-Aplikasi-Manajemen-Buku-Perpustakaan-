@@ -22,11 +22,12 @@ class SirkulasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            'user_id' => 'required|exists:users,id',
             'noHp' => 'required',
-            'buku_id' => 'required',
-            'tgl_pinjam' => 'required',
-            'tgl_kembali' => 'required',
+            'buku_id' => 'required|array',
+            'buku_id' => 'required|exists:bukus,id',
+            'tgl_pinjam' => 'required|date',
+            'tgl_kembali' => 'required|date|after_or_equal:tgl_pinjam',
         ];
     }
 }

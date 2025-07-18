@@ -284,6 +284,8 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('lte/dist/js/pages/dashboard2.js') }}"></script>
     @yield('tablejs')
+
+    @stack('scripts')
 </body>
 
 </html>
