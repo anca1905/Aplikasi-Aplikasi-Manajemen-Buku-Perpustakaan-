@@ -3,7 +3,8 @@ function loadData() {
     var url = $('#serverside').data('url');
     $('#serverside').DataTable({
         processing: true,
-        // responsive: false,
+        pagination: true,
+        responsive: false,
         serverSide: true,
         searching: true,
         ordering: false,
@@ -16,26 +17,30 @@ function loadData() {
             orderable: false,
             searchable: false,
         },
-        // {
-        //     data: 'user',
-        //     name: 'user',
-        // },
-        // {
-        //     data: 'buku',
-        //     name: 'buku',
-        // },
-        // {
-        //     data: 'noHp',
-        //     name: 'noHp',
-        // },
-        // {
-        //     data: 'tgl_pinjam',
-        //     name: 'tgl_pinjam',
-        // },
-        // {
-        //     data: 'tgl_kembali',
-        //     name: 'tgl_kembali',
-        // },
+        {
+            data: 'user',
+            name: 'user',
+        },
+        {
+            data: 'buku',
+            name: 'buku',
+        },
+        {
+            data: 'noHp',
+            name: 'noHp',
+        },
+        {
+            data: 'tgl_pinjam',
+            name: 'tgl_pinjam',
+        },
+        {
+            data: 'tgl_kembali',
+            name: 'tgl_kembali',
+        },
+        {
+            data: 'denda',
+            name: 'denda',
+        },
         {
             data: 'aksi',
             name: 'aksi ',

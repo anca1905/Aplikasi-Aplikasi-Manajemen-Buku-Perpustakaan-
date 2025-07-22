@@ -73,7 +73,7 @@
                                             <label for="tahun">Kategori</label>
                                             <select class="form-control" name="kategori">
                                                 @foreach ($kategori as $k)
-                                                    <option>{{ $k->kategori }}</option>
+                                                    <option value="{{ $k->id }}">{{ $k->kategori }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

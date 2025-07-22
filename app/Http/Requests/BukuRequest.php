@@ -22,7 +22,7 @@ class BukuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image'     => 'nullable|mimes:png,jpg',
+            'cover'     => 'required|mimes:png,jpg',
             'ISBN'      => 'required',
             'judul'     => 'required',
             'penulis'     => 'required',

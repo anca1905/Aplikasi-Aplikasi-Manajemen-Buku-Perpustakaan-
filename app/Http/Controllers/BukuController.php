@@ -46,7 +46,7 @@ class BukuController extends Controller
 
 
         $data = $request->validated();
-
+        
         $foto = $request->file('cover');
         $filename = date('Y-m-d') . $foto->getClientOriginalName();
         $path = 'buku/' . $filename;

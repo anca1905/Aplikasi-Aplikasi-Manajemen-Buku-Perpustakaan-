@@ -40,11 +40,12 @@
                                     <thead class="table-success text-center">
                                         <tr>
                                             <th style="width: 5%">No</th>
-                                            {{-- <th>ID SKL</th>
-                                            <th>Nama Buku</th>
                                             <th>Peminjam</th>
+                                            <th>Buku</th>
+                                            <th>No Hp</th>
                                             <th>Tanggal Pinjam</th>
-                                            <th>Jatuh Tempo</th> --}}
+                                            <th>Jatuh Tempo</th>
+                                            <th>Denda</th>
                                             <th style="width: 20%">Aksi</th>
                                         </tr>
                                     </thead>
